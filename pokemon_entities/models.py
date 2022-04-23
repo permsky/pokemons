@@ -6,12 +6,12 @@ class Pokemon(models.Model):
     title_en = models.CharField(
         'название покемона по-английски',
         max_length=30,
-        default='title_en'
+        blank=True
     )
     title_jp = models.CharField(
         'название покемона по-японски',
         max_length=30,
-        default='title_jp'
+        blank=True
     )
     image = models.ImageField('изображение покемона', blank=True, null=True)
     description = models.TextField(
@@ -41,8 +41,8 @@ class PokemonEntity(models.Model):
         on_delete=models.CASCADE,
         verbose_name='покемон'
     )
-    appeared_at = models.DateTimeField('появляется в')
-    disappeared_at = models.DateTimeField('исчезает в')
+    appeared_at = models.DateTimeField('появляется в', blank=True, null=True)
+    disappeared_at = models.DateTimeField('исчезает в', blank=True, null=True)
     level = models.IntegerField('уровень', default=1)
     health = models.IntegerField('здоровье', default=0)
     strength = models.IntegerField('сила', default=0)
