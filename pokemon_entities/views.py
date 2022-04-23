@@ -77,13 +77,13 @@ def show_pokemon(request, pokemon_id):
     pokemon = Pokemon.objects.get(id=pokemon_id)
     if pokemon.image:
         pokemon = {
-            'title': pokemon.title,
-            'image_url': pokemon.image.url
+            'title_ru': pokemon.title,
+            'img_url': pokemon.image.url
         }
     else:
         pokemon = {
-            'title': pokemon.title,
-            'image_url': DEFAULT_IMAGE_URL
+            'title_ru': pokemon.title,
+            'img_url': DEFAULT_IMAGE_URL
         }
     pokemon_entities = PokemonEntity.objects.filter(pokemon=pokemon_id)
     if not pokemon_entities:
@@ -95,7 +95,7 @@ def show_pokemon(request, pokemon_id):
             folium_map,
             pokemon_entity.latitude,
             pokemon_entity.longitude,
-            request.build_absolute_uri(pokemon['image_url'])
+            request.build_absolute_uri(pokemon['img_url'])
         )
 
     return render(
