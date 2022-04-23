@@ -2,12 +2,14 @@ from django.db import models
 
 
 class Pokemon(models.Model):
-    title = models.CharField(max_length=30)
+    title_ru = models.CharField(max_length=30)
+    title_en = models.CharField(max_length=30, default='title_en')
+    title_jp = models.CharField(max_length=30, default='title_jp')
     image = models.ImageField(blank=True, null=True)
     description = models.TextField(default='Описание покемона')
 
     def __str__(self):
-        return self.title
+        return self.title_ru
 
 
 class PokemonEntity(models.Model):
