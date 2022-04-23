@@ -4,6 +4,7 @@ from django.db import models
 class Pokemon(models.Model):
     title = models.CharField(max_length=30)
     image = models.ImageField(blank=True, null=True)
+    description = models.TextField(default='Описание покемона')
 
     def __str__(self):
         return self.title

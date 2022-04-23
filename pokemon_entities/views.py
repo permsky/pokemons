@@ -78,12 +78,14 @@ def show_pokemon(request, pokemon_id):
     if pokemon.image:
         pokemon = {
             'title_ru': pokemon.title,
-            'img_url': pokemon.image.url
+            'img_url': pokemon.image.url,
+            'description': pokemon.description
         }
     else:
         pokemon = {
             'title_ru': pokemon.title,
-            'img_url': DEFAULT_IMAGE_URL
+            'img_url': DEFAULT_IMAGE_URL,
+            'description': pokemon.description
         }
     pokemon_entities = PokemonEntity.objects.filter(pokemon=pokemon_id)
     if not pokemon_entities:
