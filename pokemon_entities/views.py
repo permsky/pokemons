@@ -75,13 +75,33 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     pokemon = Pokemon.objects.get(id=pokemon_id)
+    try:
+        previous_evolution = pokemon.get_previous_evolution()
+        previous_evolution = {
+            'title_ru': previous_evolution.title_ru,
+            'pokemon_id': previous_evolution.id,
+            'img_url': request.build_absolute_uri(
+                previous_evolution.image.url
+            )
+        }
+    except Pokemon.DoesNotExist:
+        previous_evolution = None
+    next_evolution = pokemon.evolution_form
+    if next_evolution:
+        next_evolution = {
+            'title_ru': next_evolution.title_ru,
+            'pokemon_id': next_evolution.id,
+            'img_url': request.build_absolute_uri(next_evolution.image.url)
+        }
     if pokemon.image:
         pokemon = {
             'title_ru': pokemon.title_ru,
             'title_en': pokemon.title_en,
             'title_jp': pokemon.title_jp,
             'img_url': pokemon.image.url,
-            'description': pokemon.description
+            'description': pokemon.description,
+            'previous_evolution': previous_evolution,
+            'next_evolution': next_evolution
         }
     else:
         pokemon = {
@@ -89,7 +109,9 @@ def show_pokemon(request, pokemon_id):
             'title_en': pokemon.title_en,
             'title_jp': pokemon.title_jp,
             'img_url': DEFAULT_IMAGE_URL,
-            'description': pokemon.description
+            'description': pokemon.description,
+            'previous_evolution': previous_evolution,
+            'next_evolution': next_evolution
         }
     pokemon_entities = PokemonEntity.objects.filter(pokemon=pokemon_id)
     if not pokemon_entities:

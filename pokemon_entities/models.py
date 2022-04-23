@@ -7,9 +7,18 @@ class Pokemon(models.Model):
     title_jp = models.CharField(max_length=30, default='title_jp')
     image = models.ImageField(blank=True, null=True)
     description = models.TextField(default='Описание покемона')
+    evolution_form = models.ForeignKey(
+        'self',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL
+    )
 
     def __str__(self):
         return self.title_ru
+    
+    def get_previous_evolution(self):
+        return Pokemon.objects.get(evolution_form=self.id)
 
 
 class PokemonEntity(models.Model):
