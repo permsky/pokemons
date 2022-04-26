@@ -16,7 +16,8 @@ class Pokemon(models.Model):
     image = models.ImageField('изображение покемона', blank=True, null=True)
     description = models.TextField(
         'описание покемона',
-        default='описание покемона'
+        default='описание покемона',
+        blank=True
     )
     evolution_form = models.ForeignKey(
         'self',
