@@ -2,15 +2,15 @@ from django.db import models
 
 
 class Pokemon(models.Model):
-    title_ru = models.CharField('название покемона по-русски', max_length=30)
+    title_ru = models.CharField('название покемона по-русски', max_length=255)
     title_en = models.CharField(
         'название покемона по-английски',
-        max_length=30,
+        max_length=255,
         blank=True
     )
     title_jp = models.CharField(
         'название покемона по-японски',
-        max_length=30,
+        max_length=255,
         blank=True
     )
     image = models.ImageField('изображение покемона', blank=True, null=True)
